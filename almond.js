@@ -409,9 +409,17 @@ var requirejs, require, define;
      */
     requirejs._defined = defined;
 
+
     define = function (name, deps, callback) {
         if (typeof name !== 'string') {
-            throw new Error('See almond README: incorrect module build, no module name');
+            if (typeof name === 'function') {
+                callback = name;
+                deps = [];
+            } else if (Array.isArray(name)) {
+                deps = name;
+                callback = deps;
+            }
+            name = document.currentScript.getAttribute("src");
         }
 
         //This module may not have dependencies
