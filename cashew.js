@@ -1,12 +1,15 @@
 /**
  * @license cashew 0.3.3 Copyright jQuery Foundation and other contributors.
- * Released under MIT license, https://github.com/requirejs/cashew/blob/master/LICENSE
+ * Released under MIT license, https://github.com/domainesia/cashew/blob/master/LICENSE
  */
 //Going sloppy to avoid 'use strict' string cost, but strict practices should
 //be followed.
 /*global setTimeout: false */
 
 var requirejs, require, define;
+/* devblock:start */
+var cashew;
+/* devblock:end */
 (function (undef) {
     var main, req, makeMap, handlers,
         defined = {},
@@ -16,6 +19,15 @@ var requirejs, require, define;
         hasOwn = Object.prototype.hasOwnProperty,
         aps = [].slice,
         jsSuffixRegExp = /\.js$/;
+
+    /* devblock:start */
+    cashew = {
+        defined: defined,
+        waiting: waiting,
+        config: config,
+        defining: defining,
+    };
+    /* devblock:end */
 
     function hasProp(obj, prop) {
         return hasOwn.call(obj, prop);
