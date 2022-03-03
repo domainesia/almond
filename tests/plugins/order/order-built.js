@@ -1,8 +1,8 @@
 
 /**
- * almond dev0.2 Copyright (c) 2011, The Dojo Foundation All Rights Reserved.
+ * cashew dev0.2 Copyright (c) 2011, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
- * see: http://github.com/jrburke/almond for details
+ * see: http://github.com/jrburke/cashew for details
  */
 //Going sloppy to avoid 'use strict' string cost, but strict practices should
 //be followed.
@@ -362,7 +362,7 @@ var requirejs, require, define;
     };
 }());
 
-define("../../../almond", function(){});
+define("../../../cashew", function(){});
 
 /**
  * @license RequireJS order 1.0.5 Copyright (c) 2010-2011, The Dojo Foundation All Rights Reserved.

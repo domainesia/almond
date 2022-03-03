@@ -1,15 +1,15 @@
 {
-  "name": "almond",
+  "name": "cashew",
   "description": "A minimal AMD API implementation for use in optimized browser builds.",
   "version": "0.3.3",
-  "homepage": "http://github.com/requirejs/almond",
+  "homepage": "http://github.com/requirejs/cashew",
   "author": "James Burke <jrburke@gmail.com> (http://github.com/jrburke)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/requirejs/almond.git"
+    "url": "git://github.com/requirejs/cashew.git"
   },
   "license": "MIT",
-  "main": "almond.js",
+  "main": "cashew.js",
   "engines": {
     "node": ">=0.4.0"
   },

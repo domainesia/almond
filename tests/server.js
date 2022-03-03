@@ -3,4 +3,4 @@ var connect = require('connect'),
 var server = connect();
 server.use(serveStatic(__dirname + '/..'));
 server.listen(1986);
-require('fs').writeFileSync(__dirname + '/pid.txt', process.pid);
+require('fs').writeFileSync(__dirname + '/pid.txt', process.pid.toString());

@@ -1,6 +1,6 @@
 #!/bin/sh
-rm almond.min.js.gz
-uglifyjs -c -m -o almond.min.js almond.js
-gzip almond.min.js
-ls -la almond.min.js.gz
+rm cashew.min.js.gz
+uglifyjs -c -m -o cashew.min.js cashew.js
+gzip cashew.min.js
+ls -la cashew.min.js.gz
 

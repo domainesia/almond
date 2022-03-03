@@ -1,10 +1,10 @@
 {
-  "name": "almond",
+  "name": "cashew",
   "license": [
     "MIT"
   ],
   "version": "0.3.3",
-  "main": "almond.js",
+  "main": "cashew.js",
   "ignore": [
     ".jshintrc",
     "tests",

@@ -1,6 +1,6 @@
 /**
- * @license almond 0.3.3 Copyright jQuery Foundation and other contributors.
- * Released under MIT license, https://github.com/requirejs/almond/blob/master/LICENSE
+ * @license cashew 0.3.3 Copyright jQuery Foundation and other contributors.
+ * Released under MIT license, https://github.com/requirejs/cashew/blob/master/LICENSE
  */
 //Going sloppy to avoid 'use strict' string cost, but strict practices should
 //be followed.
@@ -386,7 +386,7 @@ var requirejs, require, define;
             //do, and latest browsers "upgrade" to 4 if lower value is used:
             //http://www.whatwg.org/specs/web-apps/current-work/multipage/timers.html#dom-windowtimers-settimeout:
             //If want a value immediately, use require('id') instead -- something
-            //that works in almond on the global level, but not guaranteed and
+            //that works in cashew on the global level, but not guaranteed and
             //unlikely to work in other AMD implementations.
             setTimeout(function () {
                 main(undef, deps, callback, relName);
