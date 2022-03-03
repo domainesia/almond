@@ -337,6 +337,7 @@ var requirejs, require, define;
     };
 
     requirejs = require = req = function (deps, callback, relName, forceSync, alt) {
+        forceSync = typeof config.forceRequireSync !== 'undefined' ? config.forceRequireSync : forceSync;
         if (typeof deps === "string") {
             if (handlers[deps]) {
                 //callback in this case is really relName
