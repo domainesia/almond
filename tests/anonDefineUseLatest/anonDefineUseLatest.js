@@ -1,3 +1,5 @@
+// Bad anonimous define only can be called once for each file.
+
 var throwCount = 0;
 
 
@@ -6,11 +8,13 @@ try {
       return a;
   });
 } catch (e) {
+  // Should not called
   throwCount += 1;
 }
 
 try {
   define(function(require) {
+    // Should not called
     return require('b');
   });
 } catch (e) {
@@ -22,7 +26,7 @@ doh.register(
     'badAnonDefine',
     [
         function badAnonDefine(t){
-            t.is(2, throwCount);
+            t.is(0, throwCount);
         }
     ]
 );
