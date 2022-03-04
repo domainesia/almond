@@ -1,0 +1,14 @@
+{
+    "fixturesFolder": "tests/ui/fixtures",
+    "integrationFolder": "tests/",
+    "pluginsFile": "tests/ui/plugins/index.js",
+    "testFiles": "**/*.spec.js",
+    "downloadsFolder": "tests/ui/results/downloads/",
+    "screenshotsFolder": "tests/ui/results/screenshots/",
+    "videosFolder": "tests/ui/results/videos/",
+    "video": false,
+    "env": {
+      "BASE_URL": "http://localhost:1986"
+    }
+  }
+  
