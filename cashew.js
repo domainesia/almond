@@ -432,7 +432,9 @@ var cashew;
                 callback = deps;
                 deps = name;
             }
-            name = document.currentScript.getAttribute("src");
+            name = document.currentScript.getAttribute("src")
+            // Protocol is not a unique locator
+            .replace(/^(https?:\/\/)/, '//');
         }
 
         //This module may not have dependencies
