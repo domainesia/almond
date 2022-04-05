@@ -429,8 +429,8 @@ var cashew;
                 callback = name;
                 deps = [];
             } else if (Array.isArray(name)) {
-                deps = name;
                 callback = deps;
+                deps = name;
             }
             name = document.currentScript.getAttribute("src");
         }

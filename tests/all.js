@@ -33,3 +33,4 @@ doh.registerUrl("defineNoCallback", "../defineNoCallback/defineNoCallback.html")
 doh.registerUrl("packagesNode", "../packagesNode/packagesNode.html");
 doh.registerUrl("requireInDefine", "../requireInDefine/requireInDefine.html");
 doh.registerUrl("anonDefineUseLatest", "../anonDefineUseLatest/anonDefineUseLatest.html");
+doh.registerUrl("anonAutoNamed", "../anonAutoNamed/anonAutoNamed.html");
