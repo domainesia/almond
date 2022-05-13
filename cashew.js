@@ -14,6 +14,7 @@ var cashew;
     var main, req, makeMap, handlers,
         defined = {},
         waiting = {},
+        pendingMains = [],
         config = {},
         defining = {},
         hasOwn = Object.prototype.hasOwnProperty,
@@ -26,6 +27,7 @@ var cashew;
         waiting: waiting,
         config: config,
         defining: defining,
+        pendingMains: pendingMains,
     };
     /* devblock:end */
 
@@ -285,6 +287,71 @@ var cashew;
         }
     };
 
+    function queueMain(deps, fn, relName) {
+        pendingMains.unshift({
+            deps,
+            fn,
+            relName,
+        });
+    }
+
+    /**
+     * Checking for deps whether it is completely loaded or not
+     * 
+     * This excludes dynamically loaded module through plugin.
+     * 
+     * @param {Array} deps List of dependency names 
+     * @returns {bool}
+     */
+    function checkDeps(name, deps, relName) {
+        var isComplete = true;
+
+        relName = relName || name;
+        relParts = makeRelParts(relName);
+
+        try {
+            deps = !deps.length ? ['require', 'exports', 'module'] : deps;
+            for (i = 0; i < deps.length; i += 1) {
+                map = makeMap(deps[i], relParts);
+                depName = map.f;
+    
+                //Fast path CommonJS standard dependencies.
+                if (['require', 'exports', 'module'].indexOf(depName) !== -1) {
+                    continue;
+                } else if (hasProp(defined, depName) ||
+                           hasProp(waiting, depName) ||
+                           hasProp(defining, depName)) {
+                    continue;
+                } else if (map.p) {
+                    continue;
+                } else {
+                    throw new Error(name + ' missing ' + depName);
+                }
+            }
+        } catch(e) {
+            isComplete = false;
+        }
+
+        return isComplete;
+    }
+
+    function processPendingMains() {
+        if (pendingMains.length > 0) {
+            var processedMains = [];
+            var pendingMain = pendingMains.pop();
+            while (pendingMain) {
+                var isComplete = checkDeps(undef, pendingMain.deps, pendingMain.relName);
+                if (isComplete) {
+                    pendingMain.fn();
+                } else {
+                    processedMains.unshift(pendingMain);
+                }
+                pendingMain = pendingMains.pop();
+            }
+            pendingMains = processedMains;
+        }
+    }
+
     main = function (name, deps, callback, relName) {
         var cjsModule, depName, ret, map, i, relParts,
             args = [],
@@ -348,6 +415,17 @@ var cashew;
         }
     };
 
+    /**
+     * Define entrypoint and queue or run it
+     *
+     * Depending on the mode, set @param forceSync to true will
+     * load run the function anyway.
+     *
+     * @param {Array} deps Dependency names as prerequisite of the function.
+     * @param {Function} callback Main function entrypoint.
+     * @param {String} relName Name of the entrypoint.
+     * @param {bool} forceSync Either waiting for dependencies or directly execute.
+     */
     requirejs = require = req = function (deps, callback, relName, forceSync, alt) {
         forceSync = typeof config.forceRequireSync !== 'undefined' ? config.forceRequireSync : forceSync;
         if (typeof deps === "string") {
@@ -393,16 +471,15 @@ var cashew;
 
         //Simulate async callback;
         if (forceSync) {
+            if (config.debug && !checkDeps(undef, deps, relName)) {
+                // Warn using Error for stacktracing
+                console.warn(new Error("cashew: Using forceSync mode despite dependencies not complete"));
+            }
             main(undef, deps, callback, relName);
         } else {
-            //Using a non-zero value because of concern for what old browsers
-            //do, and latest browsers "upgrade" to 4 if lower value is used:
-            //http://www.whatwg.org/specs/web-apps/current-work/multipage/timers.html#dom-windowtimers-settimeout:
-            //If want a value immediately, use require('id') instead -- something
-            //that works in cashew on the global level, but not guaranteed and
-            //unlikely to work in other AMD implementations.
+            queueMain(deps, () => main(undef, deps, callback, relName), relName);
             setTimeout(function () {
-                main(undef, deps, callback, relName);
+                processPendingMains();
             }, 4);
         }
 
@@ -421,7 +498,6 @@ var cashew;
      * Expose module registry for debugging and tooling
      */
     requirejs._defined = defined;
-
 
     define = function (name, deps, callback) {
         if (typeof name !== 'string') {
@@ -449,6 +525,8 @@ var cashew;
         if (!hasProp(defined, name) && !hasProp(waiting, name)) {
             waiting[name] = [name, deps, callback];
         }
+
+        processPendingMains();
     };
 
     define.amd = {
