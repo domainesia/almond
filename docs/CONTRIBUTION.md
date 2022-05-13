@@ -29,5 +29,11 @@ to expand the scenario you want to support.
 Modify `cashew.js` file. If you're done, run the `shrinktest.sh`.
 Both the `cashew.js` and `cashew.min.js.gz` (unarchive first) is ready to be used.
 
+## Debug
+The development version `cashew.js` has global variable `cashew` that can be evaluated
+on Web Console. This is not available in the production minified build.
+You can look up what modules has been loaded and what not, what is currently loaded but not used (i.e. `cashew.waiting`) 
+and what require entrypoints not yet run (i.e. `pendingMains`).
+
 ## Release
 Bump `package.json` for the next version and upload using GitHub npm repository.
