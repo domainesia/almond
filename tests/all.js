@@ -1,12 +1,28 @@
+/**
+ * # Specification
+ */
 
+/**
+ * Function `require` should be able to pass dependencies to function after definitions.
+ */
 doh.registerUrl("simple", "../simple.html");
+/**
+ * Multiple definition will override prior definition and provide the latest.
+ */
 doh.registerUrl("defineDouble", "../defineDouble/defineDouble.html");
 doh.registerUrl("moduleConfig", "../moduleConfig/moduleConfig.html");
+/**
+ * Process dependencies according to `config.map`.
+ * See https://requirejs.org/docs/api.html#config-map.
+ */
 doh.registerUrl("mapConfig", "../mapConfig/mapConfig.html");
 doh.registerUrl("mapConfigStar", "../mapConfig/mapConfigStar.html");
 doh.registerUrl("mapConfigStarAdapter", "../mapConfig/mapConfigStarAdapter.html");
 doh.registerUrl("mapConfigSpecificity", "../mapConfig/mapConfigSpecificity.html");
 doh.registerUrl("mapConfigPlugin", "../mapConfig/mapConfigPlugin.html");
+/**
+ * Test loader plugin when dependencies contains suffix i.e. `a/plugin!a/file`.
+ */
 doh.registerUrl("plugins", "../plugins/plugins.html");
 doh.registerUrl("pluginRelative", "../plugins/relative/pluginRelative.html");
 doh.registerUrl("pluginsMapSameName", "../plugins/pluginMapSameName/pluginMapSameName.html");
@@ -31,7 +47,24 @@ doh.registerUrl("topRelativeRequire", "../topRelativeRequire/topRelativeRequire.
 doh.registerUrl("configDeps", "../configDeps/configDeps.html");
 doh.registerUrl("defineNoCallback", "../defineNoCallback/defineNoCallback.html");
 doh.registerUrl("packagesNode", "../packagesNode/packagesNode.html");
+/**
+ * Calling `require(['a'])` in a define (e.g. `define('b', ...)`) will behave
+ * as if the module (e.g. 'a') has relation with the defined (dependency graph will be `a -> b`).
+ * On the loading process, `a` will get relName of `b` and affected by configured map.
+ */
 doh.registerUrl("requireInDefine", "../requireInDefine/requireInDefine.html");
-doh.registerUrl("anonDefineUseLatest", "../anonDefineUseLatest/anonDefineUseLatest.html");
-doh.registerUrl("anonAutoNamed", "../anonAutoNamed/anonAutoNamed.html");
+/**
+ * When creating `require(['a'], function (a) {})` with async mode but the dependencies
+ * not yet complete, it will be queued. Once the necessary define (e.g. `define('a', ..)`) called,
+ * the require will run.
+ */
 doh.registerUrl("requireQueued", "../requireQueued/requireQueued.html");
+/**
+ * When multiple anonymous defines encountered, only the first definition will be run.
+ * The rest will failed silently.
+ */
+doh.registerUrl("anonDefineUseEarliest", "../anonDefineUseEarliest/anonDefineUseEarliest.html");
+/**
+ * Anonymous defines on a separate file will be named after its file name.
+ */
+ doh.registerUrl("anonAutoNamed", "../anonAutoNamed/anonAutoNamed.html");
