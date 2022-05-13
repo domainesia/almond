@@ -471,10 +471,12 @@ var cashew;
 
         //Simulate async callback;
         if (forceSync) {
+            /* devblock:start */
             if (config.debug && !checkDeps(undef, deps, relName)) {
                 // Warn using Error for stacktracing
                 console.warn(new Error("cashew: Using forceSync mode despite dependencies not complete"));
             }
+            /* devblock:end */
             main(undef, deps, callback, relName);
         } else {
             queueMain(deps, () => main(undef, deps, callback, relName), relName);
