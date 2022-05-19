@@ -110,7 +110,7 @@ doh._AssertFailure = function(msg, hint){
 	if(hint){
 		msg = (new String(msg||""))+" with hint: \n\t\t"+(new String(hint)+"\n");
 	}
-	this.message = new String(msg||"");
+	this.message = new String(msg||"") + " with trace: \n\t" + (new Error()).stack + "\n";
 	return this;
 }
 doh._AssertFailure.prototype = new Error();
