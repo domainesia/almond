@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>cashew: configAnonIdGenerator Test</title>
+    <script type="text/javascript" src="../doh/runner.js"></script>
+    <script type="text/javascript" src="../doh/_browserRunner.js"></script>
+    <script type="text/javascript" src="../../cashew.js"></script>
+    <script type="text/javascript">
+        require.config({
+            anonIdGenerator: (currScript) => {
+                return currScript.src
+                .replace(/.*\/([A-z-_]\.js)(?:\?.*)?$/, '$1');
+            },
+        });
+    </script>
+    <script type="text/javascript" src="a.js?v=2010210"></script>
+    <script type="text/javascript">
+        var a = null;
+
+        require([ 'a.js' ], function (a) {
+            console.log(a);
+            doh.register(
+                'configAnonIdGenerator',
+                [
+                    function configAnonIdGenerator(t){
+                        t.is('HEWOO', a);
+                    }
+                ]
+            );
+            doh.run();
+        }, null, true);
+    </script>
+</head>
+<body>
+    <h1>cashew: configAnonIdGenerator Test</h1>
+
+    <p>Make sure cashew allows using config.configAnonIdGenerator.</p>
+
+    <p>Check console for messages</p>
+</body>
+</html>

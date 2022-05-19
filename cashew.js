@@ -427,7 +427,7 @@ var cashew;
      * @param {bool} forceSync Either waiting for dependencies or directly execute.
      */
     requirejs = require = req = function (deps, callback, relName, forceSync, alt) {
-        forceSync = typeof config.forceRequireSync !== 'undefined' ? config.forceRequireSync : forceSync;
+        var currentScript = document.currentScript;
         if (typeof deps === "string") {
             if (handlers[deps]) {
                 //callback in this case is really relName
@@ -469,6 +469,9 @@ var cashew;
             forceSync = alt;
         }
 
+        // require() call will depends on the currentScript async prop
+        forceSync = (typeof config.forceRequireSync === 'function' ? config.forceRequireSync.apply(null, [ currentScript ]) : (config.forceRequireSync || forceSync || false));
+
         //Simulate async callback;
         if (forceSync) {
             /* devblock:start */
@@ -509,6 +512,7 @@ var cashew;
     requirejs._defined = defined;
 
     define = function (name, deps, callback) {
+        var currentScript = document.currentScript;
         if (typeof name !== 'string') {
             if (typeof name === 'function') {
                 callback = name;
@@ -517,9 +521,7 @@ var cashew;
                 callback = deps;
                 deps = name;
             }
-            name = document.currentScript.getAttribute("src")
-            // Protocol is not a unique locator
-            .replace(/^(https?:\/\/)/, '//');
+            name = (typeof config.anonIdGenerator === 'function') ? config.anonIdGenerator(currentScript) : currentScript.getAttribute("src");
         }
 
         //This module may not have dependencies
