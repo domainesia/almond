@@ -7,15 +7,32 @@
     <script type="text/javascript" src="../../cashew.js"></script>
     <script type="text/javascript">
         require.config({
-            anonIdGenerator: (currScript) => currScript.getAttribute('src'),
-            forceRequireSync: (currScript) => !currScript.async,
+            forceRequireSync: (forceSync, currScript) => currScript.src ? !currScript.async : forceSync,
         });
 
         window.valAsync = null;
         window.valSync = null;
+        window.valInlineAsync = null;
+        window.valInlineSync = null;
+        window.valInlineAsyncDueCallback = null;
     </script>
     <script async type="text/javascript" src="mainAsync.js"></script>
     <script type="text/javascript" src="mainSync.js"></script>
+    <script type="text/javascript">
+        require([], function () {
+            window.valInlineAsync = "HEWOO";
+        });
+
+        require([], function () {
+            window.valInlineSync = "HEWOO";
+        }, null, true);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            require([], function () {
+                window.valInlineAsyncDueCallback = "HEWOO";
+            }, null, true);
+        });
+    </script>
     <script type="text/javascript">
         doh.register(
             'configForceRequireSync',
@@ -23,6 +40,9 @@
                 function configForceRequireSync(t){
                     t.is(null, window.valAsync);
                     t.is("HEWOO", window.valSync);
+                    t.is(null, window.valInlineAsync);
+                    t.is("HEWOO", window.valInlineSync);
+                    t.is(null, window.valInlineAsyncDueCallback);
                 }
             ]
         );

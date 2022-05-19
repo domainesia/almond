@@ -16,7 +16,7 @@ Configuration for Cashew: it affect how we do things according to the library us
 interface CashewConfig {
     debug?: bool,
     map?: Map<String, String>,
-    forceRequireSync?: (currentScript: HTMLScriptElement) => bool | bool,
+    forceRequireSync?: (currentScript: HTMLScriptElement) => bool,
     anonIdGenerator?: (currentScript: HTMLScriptElement) => String,
 }
 
@@ -36,7 +36,8 @@ In short, it is a way to make alias for your module or specify a module loaded i
 i.e. when you load module `B` from module `A` and you need a specific `B` that differ from the rest.
 
 ### Config `forceRequireSync`
-Force `require()` call script to run synchronously, every time or with condition.
+Force `require()` call in that wrap code in a script to run (a)synchronously on condition.
+It must be a `require()` call in the outer layer and not inside any callback function (like most AMD module defined).
 You can, for example, only make `require()` async when using `<script async="">` and synchronous on other event.
 
 ### Config `anonIdGenerator`
