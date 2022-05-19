@@ -6,7 +6,7 @@ var throwCount = 0;
 try {
   require(['modA.js'], function(a) {
     shouldBeModuleContent = a;
-  });
+  }, null, true);
 } catch (e) {
   // Should not called
   throwCount += 1;
