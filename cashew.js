@@ -521,7 +521,7 @@ var cashew;
                 callback = deps;
                 deps = name;
             }
-            name = (typeof config.anonIdGenerator === 'function') ? config.anonIdGenerator(currentScript) : currentScript.getAttribute("src");
+            name = (typeof config.anonIdGenerator === 'function') ? config.anonIdGenerator(currentScript) : currentScript.src;
         }
 
         //This module may not have dependencies

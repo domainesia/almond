@@ -40,7 +40,7 @@ Force `require()` call script to run synchronously, every time or with condition
 You can, for example, only make `require()` async when using `<script async="">` and synchronous on other event.
 
 ### Config `anonIdGenerator`
-By default, Cashew will use `<script src="...">`'s `src` attribute to name anonymous module.
+By default, Cashew will use `<script src="...">`'s `src` attribute to name anonymous module (the absolute URL).
 But, each application or web has preference on how to transform these `src` into module identifier.
 
 
