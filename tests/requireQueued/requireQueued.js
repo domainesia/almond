@@ -23,9 +23,9 @@ try {
 
 
 doh.register(
-    'badAnonDefine',
+    'requireQueued',
     [
-        function badAnonDefine(t){
+        function requireQueued(t){
             t.is(0, throwCount);
             t.is("WOW", result)
         }

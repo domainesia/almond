@@ -1,4 +1,5 @@
-// Bad anonimous define only can be called once for each file.
+// Anonimous define can only be called once for each file.
+// If multiple found, we only record module from the latest call.
 
 var throwCount = 0;
 
@@ -23,9 +24,9 @@ try {
 
 
 doh.register(
-    'badAnonDefine',
+    'anonDefineUseLatest',
     [
-        function badAnonDefine(t){
+        function anonDefineUseLatest(t){
             t.is(0, throwCount);
         }
     ]

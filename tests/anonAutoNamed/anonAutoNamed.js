@@ -1,4 +1,4 @@
-// Bad anonimous define only can be called once for each file.
+// Auto name define inside a file, loaded via script src, even with query string
 
 var shouldBeModuleContent = null;
 var throwCount = 0;
@@ -6,7 +6,7 @@ var throwCount = 0;
 try {
   require(['modA.js'], function(a) {
     shouldBeModuleContent = a;
-  }, null, true);
+  });
 } catch (e) {
   // Should not called
   throwCount += 1;
