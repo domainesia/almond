@@ -60,10 +60,10 @@ doh.registerUrl("requireInDefine", "../requireInDefine/requireInDefine.html");
  */
 doh.registerUrl("requireQueued", "../requireQueued/requireQueued.html");
 /**
- * When multiple anonymous defines encountered, only the first definition will be run.
- * The rest will failed silently.
+ * When multiple anonymous defines encountered, only the last definition will be recorded.
+ * The rest will be overwritten.
  */
-doh.registerUrl("anonDefineUseEarliest", "../anonDefineUseEarliest/anonDefineUseEarliest.html");
+doh.registerUrl("anonDefineUseLatest", "../anonDefineUseLatest/anonDefineUseLatest.html");
 /**
  * Anonymous defines on a separate file will be named after its file name.
  */
