@@ -31,6 +31,7 @@ doh.registerUrl("defineDouble", "../defineDouble/defineDouble.html");
 
 doh.registerUrl("configDeps", "../configDeps/configDeps.html");
 doh.registerUrl("configAnonIdGenerator", "../configAnonIdGenerator/configAnonIdGenerator.html");
+doh.registerUrl("configForceRequireSync", "../configForceRequireSync/configForceRequireSync.html");
 doh.registerUrl("moduleConfig", "../moduleConfig/moduleConfig.html");
 
 /// Process dependencies according to `config.map`.

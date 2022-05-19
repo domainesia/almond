@@ -470,7 +470,7 @@ var cashew;
         }
 
         // require() call will depends on the currentScript async prop
-        forceSync = (typeof config.forceRequireSync === 'function' ? config.forceRequireSync.apply(null, [ currentScript ]) : (config.forceRequireSync || forceSync || false));
+        forceSync = (typeof config.forceRequireSync === 'function' && currentScript ? config.forceRequireSync.apply(null, [ currentScript ]) : (config.forceRequireSync || forceSync || false));
 
         //Simulate async callback;
         if (forceSync) {
